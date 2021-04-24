@@ -11,11 +11,12 @@ describe('something', () => {
           const endpoint = res.data.endpoint;
           const browser  = await playwright.chromium.connect({ wsEndpoint: endpoint });
           const page     = await browser.newPage();
-          let domain     = "amazon.com";
+          // let domain     = "amazon.com";
+          const target   = process.env.TARGET;
 
-          await page.goto(`https://${domain}`);
+          await page.goto(`https://${target}`);
           await page.screenshot({
-            path: `doc/${domain}.png`
+            path: `doc/${target}.png`
           });
 
           await browser.close();
