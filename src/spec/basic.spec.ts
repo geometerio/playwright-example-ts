@@ -4,7 +4,7 @@ import * as playwright from "playwright";
 describe('something', () => {
   it('does something', async () => {
     try {
-      await axios.default.get('http://localhost:8081/api/connect/chromium')
+      await axios.default.get('http://localhost:8080/api/connect/chromium')
         .then(async (res) => {
           console.info(`connecting to ${res.data.endpoint}`);
 
