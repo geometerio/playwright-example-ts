@@ -4,19 +4,18 @@ import * as playwright from "playwright";
 describe('something', () => {
   it('does something', async () => {
     try {
-      // ws://127.0.0.1:61385/f0c7bd2771f1a8305015307624aa3b1d
       await axios.default.get('http://localhost:8081/api/connect')
         .then(async (res) => {
-          console.dir(res.data);
+          console.info(`connecting to ${res.data.endpoint}`);
 
           const endpoint = res.data.endpoint;
           const browser  = await playwright.chromium.connect({ wsEndpoint: endpoint });
           const page     = await browser.newPage();
-          let domain     = "en.wikipedia.org/wiki/Test";
+          let domain     = "amazon.com";
 
           await page.goto(`https://${domain}`);
           await page.screenshot({
-            path: `doc/test.png`
+            path: `doc/${domain}.png`
           });
 
           await browser.close();
