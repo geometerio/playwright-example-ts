@@ -1,0 +1,23 @@
+{
+  "name": "geo-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pkg/index.js",
+  "scripts": {
+    "spec": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "expect-playwright": "^0.3.4",
+    "geologue-api": "file:img",
+    "jest": "^26.6.3",
+    "jest-html-reporters": "^2.1.4",
+    "jest-playwright-preset": "^1.5.2",
+    "playwright": "^1.10.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
