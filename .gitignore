@@ -1,6 +1,8 @@
+.DS_Store
 .local
 .vscode
 
+/doc/report
 /pkg
 /tmp
 
