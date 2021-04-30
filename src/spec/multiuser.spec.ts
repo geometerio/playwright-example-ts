@@ -1,7 +1,5 @@
 import * as playwright from "playwright";
 import "expect-playwright"
-// import {expect} from "expect-playwright";
-// import {selectors} from "playwright";
 
 describe('a multiuser video chat', () => {
   it('succeeds', async () => {
@@ -23,7 +21,8 @@ describe('a multiuser video chat', () => {
       const page = await context.newPage();
 
       await step1(page, participant);
-      await expect(page).toHaveSelectorCount('.remote-videos-container > span.videocontainer', 5);
+      await expect(page).toHaveSelectorCount('.remote-videos-container > span.videocontainer', 4);
+      await capture(page, `doc/results/${room}/participant-${participant}-step1.png`);
 
       await step2(page, participant);
     }));
@@ -32,14 +31,16 @@ describe('a multiuser video chat', () => {
   });
 });
 
+async function capture(page: playwright.Page, path: string) {
+  await page.screenshot({path: path});
+}
+
 async function joinRoom(page: playwright.Page, room: string, participant: string) {
   return new Promise<void>(async (resolve) => {
     await page.goto(`https://meet.jit.si/${room}`);
     await page.fill("css=input.field", `participant-${participant}`);
     await page.click("css=div[data-testid='prejoin.joinMeeting']");
-
-    await sleep(20000); // <-- this is a good indication of why we need custom expectations, selectors, etc.
-    await page.screenshot({path: `doc/results/${room}/participant-${participant}-01-onJoin.png`});
+    // await page.screenshot({path: `doc/results/${room}/participant-${participant}-01-onJoin.png`});
 
     resolve();
   });
