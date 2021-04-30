@@ -29,12 +29,9 @@ describe('a multiuser video room', () => {
       const context = await browser.newContext();
       const page = await context.newPage();
 
-      // for (var step of steps) {
-      // await step(page, room, user);
-      // }
-
-      await steps[0](page, room, slug, user);
-      await steps[1](page, room, slug, user);
+      for (var step of steps) {
+        await step(page, room, slug, user);
+      }
     }));
   });
 });
@@ -79,7 +76,7 @@ function getDate() {
 }
 
 function getSlug() {
-  const chars = Math.random().toString(36).substring(2, 6);
+  const chars = Math.random().toString(36).substring(2, 8).replace(/[0-9]/g, "x");
   return(chars.charAt(0).toUpperCase() + chars.slice(1));
 }
 
