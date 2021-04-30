@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+docker run --rm -e "CONNECTION_TIMEOUT=90000" -p 3000:3000 --name browserless browserless/chrome:latest

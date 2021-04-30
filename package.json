@@ -5,7 +5,7 @@
   "main": "pkg/index.js",
   "scripts": {
     "compile": "tsc -p etc/tsconfig.json",
-    "spec": "jest"
+    "spec": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
