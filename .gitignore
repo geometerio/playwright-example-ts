@@ -3,6 +3,7 @@
 .vscode
 
 /doc/report
+/doc/results
 /pkg
 /tmp
 

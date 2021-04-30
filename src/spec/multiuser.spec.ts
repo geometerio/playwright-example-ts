@@ -25,6 +25,8 @@ describe('a multiuser video chat', () => {
       await capture(page, `doc/results/${room}/participant-${participant}-step1.png`);
 
       await step2(page, participant);
+      // await expect(page).toHaveSelectorCount('.remote-videos-container > span.videocontainer', 0);
+      await capture(page, `doc/results/${room}/participant-${participant}-step2.png`);
     }));
 
     await browser.close();
@@ -40,7 +42,9 @@ async function joinRoom(page: playwright.Page, room: string, participant: string
     await page.goto(`https://meet.jit.si/${room}`);
     await page.fill("css=input.field", `participant-${participant}`);
     await page.click("css=div[data-testid='prejoin.joinMeeting']");
-    // await page.screenshot({path: `doc/results/${room}/participant-${participant}-01-onJoin.png`});
+
+    const title = await page.title();
+    expect(title).toMatch("20210429");
 
     resolve();
   });
@@ -48,12 +52,10 @@ async function joinRoom(page: playwright.Page, room: string, participant: string
 
 async function quitRoom(page: playwright.Page, room: string, participant: string) {
   return new Promise<void>(async (resolve) => {
-    // attempt to hangup...
-    // await page.click("css=div.hangup-button");
-    // await page.click("css=[aria-label='Leave the call']");
-    // ...can't seem to do so. instead, just leave:
     await page.goto("https://meet.jit.si");
-    await page.screenshot({path: `doc/results/${room}/participant-${participant}-02-onQuit.png`});
+
+    const title = await page.title();
+    expect(title).toBe("Jitsi Meet");
 
     resolve();
   });
