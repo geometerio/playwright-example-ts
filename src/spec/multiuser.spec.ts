@@ -25,7 +25,7 @@ describe('a multiuser video chat', () => {
       await capture(page, `doc/results/${room}/participant-${participant}-step1.png`);
 
       await step2(page, participant);
-      // await expect(page).toHaveSelectorCount('.remote-videos-container > span.videocontainer', 0);
+      await expect(page).toHaveSelectorCount('.remote-videos-container > span.videocontainer', 0);
       await capture(page, `doc/results/${room}/participant-${participant}-step2.png`);
     }));
 
