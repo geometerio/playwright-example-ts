@@ -2,7 +2,7 @@ import * as playwright from "playwright";
 import "expect-playwright"
 
 let browser: playwright.Browser;
-let users: Array<string>;
+let users: Array < string >;
 
 beforeAll(async () => {
   users = ["user-0", "user-1", "user-2", "user-3"];
@@ -23,7 +23,7 @@ describe('a multiuser video room', () => {
     const room = `${date}-geo-${slug}`;
     const steps = [joinRoom, quitRoom];
 
-    console.info(`room will be '${room}'`);
+    console.info(`room will be 'https://meet.jit.si/${room}'`);
 
     await Promise.all(users.map(async (user : string) => {
       const context = await browser.newContext();
@@ -36,12 +36,11 @@ describe('a multiuser video room', () => {
   });
 });
 
-async function capture(page: playwright.Page, path: string) {
-  await page.screenshot({path: path});
-}
+async function joinRoom(page : playwright.Page, room : string, slug : string, user : string) {
+  const url = `https://meet.jit.si/${room}`;
+  console.info(`user '${user}' is joining '${url}'`);
 
-async function joinRoom(page: playwright.Page, room: string, slug: string, user: string) {
-  await page.goto(`https://meet.jit.si/${room}`);
+  await page.goto(url);
   await page.fill("css=input.field", `${user}`);
   await page.click("css=div[data-testid='prejoin.joinMeeting']");
 
@@ -59,7 +58,7 @@ async function joinRoom(page: playwright.Page, room: string, slug: string, user:
   await sleep(500);
 }
 
-async function quitRoom(page: playwright.Page, room: string, slug: string, user: string) {
+async function quitRoom(page : playwright.Page, room : string, slug : string, user : string) {
   await page.goto("https://meet.jit.si");
 
   const title = await page.title();
@@ -68,6 +67,10 @@ async function quitRoom(page: playwright.Page, room: string, slug: string, user:
   await sleep(500);
   await capture(page, `doc/results/${room}/${user}-quit.png`);
   await sleep(500);
+}
+
+async function capture(page : playwright.Page, path : string) {
+  await page.screenshot({path: `.local/spec-results/${path}`});
 }
 
 function getDate() {
@@ -80,6 +83,6 @@ function getSlug() {
   return(chars.charAt(0).toUpperCase() + chars.slice(1));
 }
 
-function sleep(ms: number) {
+function sleep(ms : number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
